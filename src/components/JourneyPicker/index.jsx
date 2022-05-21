@@ -69,6 +69,14 @@ export const JourneyPicker = ({ onJourneyChange }) => {
 
   console.log(date);
   const handleSubmit = (event) => {
+    fetch(
+      `https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        onJourneyChange(data.results);
+      });
+
     event.preventDefault();
     return console.log('Odesílám formulář s cestou');
   };
@@ -103,7 +111,11 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             </select>
           </label>
           <div className="journey-picker__controls">
-            <button className="btn" type="submit">
+            <button
+              className="btn"
+              type="submit"
+              disabled={!(fromCity && toCity && date)} /// alebo {!fromCity || !toCity || !date} (pretoze ich vychozi stav je vzdy prazny string, ktory ma hodnotu false)
+            >
               Vyhledat spoj
             </button>
           </div>
