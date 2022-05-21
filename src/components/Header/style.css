@@ -20,3 +20,8 @@ header {
   color: white;
   text-decoration: none;
 }
+header,
+footer {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
